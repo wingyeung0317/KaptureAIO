@@ -1,17 +1,25 @@
 package com.example.kaptureaio
 
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import android.view.View
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
 import com.example.kaptureaio.databinding.ActivityMainBinding
+import com.example.kaptureaio.ui.login.LoginFragment
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,5 +62,12 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    fun goLogin(view: View){ //Go to the login page via onclicklistener
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        navController.navigate(R.id.nav_login)
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        drawerLayout.closeDrawer(Gravity.LEFT)
     }
 }

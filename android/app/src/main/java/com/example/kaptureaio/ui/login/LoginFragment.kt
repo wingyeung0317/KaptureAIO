@@ -1,5 +1,6 @@
 package com.example.kaptureaio.ui.login
 
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.annotation.StringRes
@@ -18,6 +19,7 @@ import android.widget.Toast
 import com.example.kaptureaio.databinding.FragmentLoginBinding
 
 import com.example.kaptureaio.R
+import com.example.kaptureaio.ui.forum.ForumFragment
 
 class LoginFragment : Fragment() {
 
