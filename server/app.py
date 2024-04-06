@@ -19,6 +19,11 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     return 'Hello world!'
+
+@app.route('/connect', methods=['POST'])
+def connect():
+    status = request.get_data()
+    return status
     
 if __name__ == '__main__':
     app.run()
