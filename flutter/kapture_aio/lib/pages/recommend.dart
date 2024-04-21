@@ -56,7 +56,7 @@ class _RecommendState extends State<Recommend> {
     return Container(
       child: 
         Column(children: [
-          Text("Information provided by DCFever"),
+          Text("Info from: https://www.dcfever.com/travel/hongkong.php"),
           SizedBox(
             height: 420,
             child:
