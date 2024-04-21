@@ -54,7 +54,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   int _selectedIndex = 0;
+  
   String username = I18n.roleVisitor;
   String role = I18n.roleVisitor;
   bool isLogin = false;
