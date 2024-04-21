@@ -1,0 +1,19 @@
+str,en_US,zh_HK
+title,Kapture AIO,港攝AIO
+setting,Settings,設定
+login,Login,登入
+logout,Logout,登出
+menu_env,Environment Info,環境資訊
+menu_camera,Camera Info and Market,相機資料與巿場
+menu_recommend,Recommend Place,香港好去處
+menu_forum,Forum,論壇
+role_visitor,Visitor,訪客
+role_rookie,Rookie,新手
+role_intermediate,Intermediate,入門
+role_advanced,Advanced,進階
+role_master,Master,專家
+email,Email,電郵
+password,Password,密碼
+invalid_username,Not a valid username,非有效的Username
+invalid_password,Password must be >5 characters,密碼必須大於5個字元
+login_failed,Login failed,登入失敗
