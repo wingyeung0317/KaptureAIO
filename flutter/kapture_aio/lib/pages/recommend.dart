@@ -53,8 +53,8 @@ class _RecommendState extends State<Recommend> {
   @override
   Widget build(BuildContext context) {
     print(_data);
-    return Container(
-      child: 
+    return ListView(
+      children: [
         Column(children: [
           Text("Info from: https://www.dcfever.com/travel/hongkong.php"),
           SizedBox(
@@ -68,17 +68,17 @@ class _RecommendState extends State<Recommend> {
                 ),
                 children: [
                   TileLayer(
-                      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      urlTemplate: 'http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png',
                       userAgentPackageName: 'com.example.app',
                   ),
                   
-                  for (var i in _data)
-                    MarkerLayer(
-                      markers: [
+                  MarkerLayer(
+                    markers: [
+                    for (var i in _data)
                         Marker(
                           point: LatLng(double.parse(i[3].toString()), double.parse(i[2].toString())),
                           width: 300,
-                          alignment: Alignment.topRight,
+                          alignment: Alignment.centerRight,
                           child: InkWell(
                             child:Text(i[0], style: TextStyle(fontSize: 16, color: Colors.deepPurple, backgroundColor: Colors.white)),
                             onTap: () {
@@ -86,8 +86,8 @@ class _RecommendState extends State<Recommend> {
                             },
                           )
                         ),
-                      ],
-                    )
+                    ],
+                  )
                 ],
               ),
           ),
@@ -116,6 +116,6 @@ class _RecommendState extends State<Recommend> {
           ),
           Text(selectedText),
         ],)
-    );
+    ]);
   }
 }
