@@ -80,7 +80,14 @@ class _RecommendState extends State<Recommend> {
                           width: 300,
                           alignment: Alignment.centerRight,
                           child: InkWell(
-                            child:Text(i[0], style: TextStyle(fontSize: 16, color: Colors.deepPurple, backgroundColor: Colors.white)),
+                            child:Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 3,
+                                ),
+                              ),
+                              child:Text(i[0], style: TextStyle(fontSize: 16, color: Colors.deepPurple, backgroundColor: Colors.white)),),
                             onTap: () {
                               _onSelected(i[0]);
                             },

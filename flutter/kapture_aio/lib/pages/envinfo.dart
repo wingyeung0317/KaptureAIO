@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'dart:convert';
 
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
@@ -16,8 +19,9 @@ class EnvInfo extends StatefulWidget {
 
 class _EnvInfoState extends State<EnvInfo> {
   List<dynamic> _visibilitydata = [];
-  var _weathertoday;
-  
+  var _weathertoday = json.decode('{"lightning": {"data": [],"startTime": "0001-01-01T00:00:00+08:00","endTime": "0001-01-01T00:00:00+08:00"},"rainfall": {"data": [],"startTime": "0001-01-01T00:00:00+08:00","endTime": "0001-01-01T00:00:00+08:00"},"warningMessage": ["Update failed"],"icon": [64],"iconUpdateTime": "0001-01-01T00:00:00+08:00","specialWxTips": ["Update failed", "Update failed", "Update failed"],"uvindex": {"data": [{"place": "京士柏","value": 0,"desc": "n/a"}],"recordDesc": "Update failed"},"updateTime": "0001-01-01T00:00:00+08:00","temperature": {"data": [],"recordTime": "0001-01-01T00:00:00+08:00"},"tcmessage": "","mintempFrom00To09": "","rainfallFrom00To12": "","rainfallLastMonth": "","rainfallJanuaryToLastMonth": "","humidity": {"recordTime": "0001-01-01T00:00:00+08:00","data": []}}');
+  var _reporttoday = json.decode('{"generalSituation": "Update Failed","tcInfo": "","fireDangerWarning": "","forecastPeriod": "Update Failed","forecastDesc": "Update Failed","outlook": "Update Failed","updateTime": "0001-01-01T00:00:00+08:00"}');
+  var _reportfuture = json.decode('{"generalSituation": "Update Failed","weatherForecast": [{"forecastDate": "Update Failed","week": "Update Failed","forecastWind": "Update Failed","forecastWeather": "Update Failed","forecastMaxtemp": {"value": 0,"unit": "C"},"forecastMintemp": {"value": 0,"unit": "C"},"forecastMaxrh": {"value": 0,"unit": "percent"},"forecastMinrh": {"value": 0,"unit": "percent"},"ForecastIcon": 0,"PSR": "Update Failed"}, {"forecastDate": "00000000","week": "Update Failed","forecastWind": "Update Failed","forecastWeather": "Update Failed","forecastMaxtemp": {"value": 0,"unit": "C"},"forecastMintemp": {"value": 0,"unit": "C"},"forecastMaxrh": {"value": 0,"unit": "percent"},"forecastMinrh": {"value": 0,"unit": "percent"},"ForecastIcon": 0,"PSR": "Update Failed"}]}');
   void _fetchVisibility() async {
     final response = await http.get(Uri.parse('https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=LTMV&lang=tc&rformat=csv'));
     if(response.statusCode == 200) {
@@ -120,10 +124,31 @@ class _EnvInfoState extends State<EnvInfo> {
     }
     setState(() {});
     print(_weathertoday);
+    print(_weathertoday["icon"][0]);
+  }
 
-    for (var i in _weathertoday['temperature']['data']){
-      print(i.toString());
+  // fetch weather report from https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=flw&lang=tc
+  void _fetchWeatherReport() async {
+    final response = await http.get(Uri.parse('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=flw&lang=tc'));
+    if(response.statusCode == 200) {
+      _reporttoday = await json.decode(response.body);
+    }else{
+      throw Exception('Failed to load weather report data');
     }
+    setState(() {});
+    print(_reporttoday);
+  }
+
+  // fetch future weather report from https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=tc
+  void _fetchWeatherFuture() async {
+    final response = await http.get(Uri.parse('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=tc'));
+    if(response.statusCode == 200) {
+      _reportfuture = await json.decode(response.body);
+    }else{
+      throw Exception('Failed to load future weather report data');
+    }
+    setState(() {});
+    print(_reportfuture);
   }
 
   String mode = '';
@@ -141,7 +166,7 @@ class _EnvInfoState extends State<EnvInfo> {
                   Column(
                     children: [
                       Text(i['place'], style: TextStyle(fontSize: 16, color: Colors.deepPurple, backgroundColor: Colors.white)),
-                      Text("${i['value']}${i['unit']}", style: TextStyle(fontSize: 11, color: Colors.deepPurple, backgroundColor: Colors.white)),
+                      Text("${i['value']} °${i['unit']}", style: TextStyle(fontSize: 11, color: Colors.deepPurple, backgroundColor: Colors.white)),
                     ],
                   ),
                 onTap: () {},
@@ -165,7 +190,7 @@ class _EnvInfoState extends State<EnvInfo> {
                   Column(
                     children: [
                       Text(i['place'], style: TextStyle(fontSize: 16, color: Colors.deepPurple, backgroundColor: Colors.white)),
-                      Text("${i['max']}${i['unit']}", style: TextStyle(fontSize: 11, color: Colors.deepPurple, backgroundColor: Colors.white)),
+                      Text("${i['max']} ${i['unit']}", style: TextStyle(fontSize: 11, color: Colors.deepPurple, backgroundColor: Colors.white)),
                     ],
                   ),
                 onTap: () {},
@@ -203,11 +228,13 @@ class _EnvInfoState extends State<EnvInfo> {
     super.initState();
     _fetchVisibility();
     _fetchWeatherToday();
+    _fetchWeatherReport();
+    _fetchWeatherFuture();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children:[ 
           SizedBox(
             height: 250,
@@ -278,7 +305,71 @@ class _EnvInfoState extends State<EnvInfo> {
                     ),),),
               ]),
             ],
-          )
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 20), child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text('Weather Report', textAlign:  TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.orange)),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(flex: 7, child: Card(
+                    child: Column(
+                      children: [
+                        Row(children: [
+                            Image.network('https://www.hko.gov.hk/images/HKOWxIconOutline/pic${_weathertoday["icon"][0]}.png', width: 16, color: Colors.black,),
+                            Text('  今 日 天 氣', style: TextStyle(fontSize: 16, color: Colors.deepPurple)),
+                        ]),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            for(var i in _reporttoday.values)
+                              Text(i.toString(), textAlign: TextAlign.left,),
+                          ],
+                        ),
+                        Row(children: [
+                            Image.network('https://www.hko.gov.hk/images/HKOWxIconOutline/pic${_weathertoday["icon"][0]}.png', width: 16, color: Colors.black,),
+                            Text('  天 氣 警 告', style: TextStyle(fontSize: 16, color: Colors.deepPurple)),
+                        ]),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                              Text(_weathertoday['warningMessage'].toString()==""?"無":_weathertoday['warningMessage'].toString(), textAlign: TextAlign.left,),
+                          ],
+                        ),
+                        Row(children: [
+                            Image.network('https://www.hko.gov.hk/images/HKOWxIconOutline/pic${_weathertoday["icon"][0]}.png', width: 16, color: Colors.black,),
+                            Text('  特 別 天 氣 提 示', style: TextStyle(fontSize: 16, color: Colors.deepPurple)),
+                        ]),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                              Text(_weathertoday['specialWxTips'].toString()=="null"?"無":_weathertoday['specialWxTips'].toString(), textAlign: TextAlign.left,),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )),
+                  Expanded(flex: 3, child: Card(
+                    child: Column(
+                      children: [
+                        Text('未 來 九 日 天 氣', style: TextStyle(fontSize: 16, color: Colors.deepPurple)),
+                            for(var i in _reportfuture['weatherForecast'])
+                              Card(
+                                child: Row(
+                                  children: [
+                                    Image.network('https://www.hko.gov.hk/images/HKOWxIconOutline/pic${i['ForecastIcon']}.png', width: 32, color: Colors.black,),
+                                    Text("  ${i['week']}  ${i['forecastMaxtemp']['value']}°C \n  ${i['PSR']}下雨機率"),
+                                  ],
+                                ),
+                              )
+                      ],
+                    ),
+                  )),
+                ],
+              ),
+            ],
+          ))
     ]);
   }
 }
