@@ -10,7 +10,7 @@
 西貢水警東警署,(望向東南面),https://www.weather.gov.hk/wxinfo/aws/hko_mica/skg/latest_SKG.jpg
 清水灣,(望向西南面),https://www.weather.gov.hk/wxinfo/aws/hko_mica/cwb/latest_CWB.jpg
 清水灣,(望向東面),https://www.weather.gov.hk/tc/wxinfo/ts/webcam/CWA_photo.htm
-滘西洲,(望向西北偏西面), https://www.weather.gov.hk/wxinfo/aws/hko_mica/ks2/latest_KS2.jpg
+滘西洲,(望向西北偏西面),https://www.weather.gov.hk/wxinfo/aws/hko_mica/ks2/latest_KS2.jpg
 九龍城,(望向東九龍及港島東部),https://www.weather.gov.hk/wxinfo/aws/hko_mica/klt/latest_KLT.jpg
 尖沙咀,(望向西面),https://www.weather.gov.hk/wxinfo/aws/hko_mica/hk2/latest_HK2.jpg
 尖沙咀,(望向東面),https://www.weather.gov.hk/wxinfo/aws/hko_mica/hko/latest_HKO.jpg
@@ -26,3 +26,7 @@
 坪洲,(北望大嶼山東北角的竹篙灣),https://www.weather.gov.hk/wxinfo/aws/hko_mica/dnl/latest_DNL.jpg
 長沙,(望向西北面),https://www.weather.gov.hk/wxinfo/aws/hko_mica/cs1/latest_CS1.jpg
 長洲,(望向北面),https://www.weather.gov.hk/wxinfo/aws/hko_mica/cch/latest_CCH.jpg
+長洲東灣,(望向東面),https://www.weather.gov.hk/wxinfo/aws/hko_mica/cce/latest_CCE.jpg
+南丫島,(望向西北面),https://www.weather.gov.hk/wxinfo/aws/hko_mica/lam/latest_LAM.jpg
+橫瀾島,(望向西北偏北面),https://www.weather.gov.hk/wxinfo/aws/hko_mica/wl2/latest_WL2.jpg
+橫瀾島,(望向西面),https://www.weather.gov.hk/wxinfo/aws/hko_mica/wgl/latest_WGL.jpg

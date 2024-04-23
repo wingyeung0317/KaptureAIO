@@ -81,10 +81,12 @@ class _RecommendState extends State<Recommend> {
                           alignment: Alignment.centerRight,
                           child: InkWell(
                             child:Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 3,
+                                decoration: BoxDecoration(
+                                border: Border(
+                                  left: BorderSide(
+                                  color: Colors.black87,
+                                  width: 2,
+                                  ),
                                 ),
                               ),
                               child:Text(i[0], style: TextStyle(fontSize: 16, color: Colors.deepPurple, backgroundColor: Colors.white)),),

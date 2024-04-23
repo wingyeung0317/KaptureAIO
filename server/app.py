@@ -18,15 +18,23 @@ import pandas as pd
 from sqlalchemy import create_engine, delete
 from sqlalchemy.engine import URL
 from sqlalchemy.dialects.postgresql import insert
-from sqlalchemy import Boolean, Column, ForeignKey, BigInteger, Integer, String, TIMESTAMP, Table, MetaData, update, text, PrimaryKeyConstraint
+from sqlalchemy import Boolean, Column, ForeignKey, BigInteger, Integer, String, TIMESTAMP, Table, MetaData, update, text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
+import json
+import arrow
 
 import localconst # Save your sql connection data into localconst.py
 db_user = localconst.user
 db_password = localconst.password
 db_hostname = localconst.hostname
 db_database_name = localconst.database_name
+
+app = Flask(__name__)
+# CORS(app)
+
+if __name__ == '__main__':
+    app.run()
 
 engine = create_engine(f"postgresql+psycopg2://{db_user}:{db_password}@{db_hostname}/{db_database_name}", future=True)
 metadata = MetaData()
@@ -36,30 +44,31 @@ print(engine)
 
 users = Table(
     "users", metadata,
-    Column("id", UUID(as_uuid=True), primary_key=True, default=uuid.uuid4),
-    Column("username", String, primary_key=True), 
+    Column("id", Integer, primary_key=True, autoincrement=True),
+    Column("username", String, unique=True), 
     Column("displayname", String), 
     Column("email", String), 
     Column("password", String),
-    Column("role", String)
+    Column("role", String, default="rookie"),
+    Column("img", String, default="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"),
 )
 
 forums = Table(
     "forums", metadata,
-    Column("id", UUID(as_uuid=True), primary_key=True, default=uuid.uuid4),
+    Column("id", Integer, primary_key=True, autoincrement=True),
     Column("writer", None, ForeignKey("users.id")),
     Column("title", String),
     Column("content", String),
-    Column("create_time", TIMESTAMP)
+    Column("create_time", TIMESTAMP, server_default=text("now()")),
 )
 
 replies = Table(
     "replies", metadata,
-    Column("id", UUID(as_uuid=True), primary_key=True, default=uuid.uuid4),
+    Column("id", Integer, primary_key=True, autoincrement=True),
     Column("writer", None, ForeignKey("users.id")),
     Column("content", String),
     Column("forum_id", None, ForeignKey("forums.id")),
-    Column("create_time", TIMESTAMP)
+    Column("create_time", TIMESTAMP, server_default=text("now()")),
 )
 
 likes = Table(
@@ -68,13 +77,10 @@ likes = Table(
     Column("forum_id", None, ForeignKey("forums.id")),
     Column("replies_id", None, ForeignKey("replies.id")),
     Column("like", Boolean),
-    PrimaryKeyConstraint("user_id", "forum_id", name="forumlikes_pk"),
-    PrimaryKeyConstraint("user_id", "replies_id", name="replylikes_pk"),
+    Column("create_time", TIMESTAMP, server_default=text("now()")),
+    UniqueConstraint("user_id", "forum_id", "replies_id", name="likes_pk"),
 )
 metadata.create_all(engine)
-
-app = Flask(__name__)
-# CORS(app)
 
 @app.route('/')
 def hello():
@@ -99,15 +105,15 @@ def login():
         print(f"Error: {correct_password}")
     returnJSON_df = pd.DataFrame()
     if(correct_password == user_password):
-        userdf = pd.read_sql_query(f"SELECT id, username, displayname, email, role FROM users WHERE username = '{user_username}' OR email = '{user_username}'", con=engine)
+        userdf = pd.read_sql_query(f"SELECT id, username, displayname, email, img, role FROM users WHERE username = '{user_username}' OR email = '{user_username}'", con=engine)
         print(userdf)
-        returnJSON_df = pd.DataFrame([['Login success']], columns=['status'])
+        returnJSON_df = pd.DataFrame([['success']], columns=['status'])
         print(returnJSON_df)
         returnJSON_df = pd.concat([returnJSON_df, userdf], axis=1)
     elif(correct_password == None):
-        returnJSON_df = pd.DataFrame([['User not found', 0, 'Visitor', '', '']], columns=['status', 'id', 'username', 'displayname', 'email', 'role'])
+        returnJSON_df = pd.DataFrame([['User not found', 0, 'Visitor', 'Visitor', '', 'Visitor']], columns=['status', 'id', 'username', 'displayname', 'email', 'role'])
     else:
-        returnJSON_df = pd.DataFrame([['Incorrect password', 0, 'Visitor', '', '']], columns=['status', 'id', 'username', 'displayname', 'email', 'role'])
+        returnJSON_df = pd.DataFrame([['Incorrect password', 0, 'Visitor', 'Visitor', '', 'Visitor']], columns=['status', 'id', 'username', 'displayname', 'email', 'role'])
     returnJSON = returnJSON_df.to_json(orient='records', lines=True)
     return f'{returnJSON}'
 
@@ -118,13 +124,12 @@ def register():
     user_displayname = user_info["displayname"]
     user_email = user_info["email"]
     user_password = user_info["password"]
-    user_role = user_info["role"]
     try:
-        stmt = text(f"INSERT INTO users VALUES({uuid.uuid4}, {user_username}, {user_displayname}, {user_email}, {user_password}, {user_role})")
+        stmt = insert(users).values(username=user_username, displayname=user_displayname, email=user_email, password=user_password)
         with engine.connect() as conn:
             result = conn.execute(stmt)
             conn.commit()
-        return "User Created"
+        return "success"
     except Exception as e:
         print(e)
         return "Error: User Exists"
@@ -132,8 +137,9 @@ def register():
 
 @app.route('/getforum', methods=['GET'])
 def getforum():
-    forumdf = pd.read_sql_query("SELECT * FROM forums", con=engine)
-    returnJSON = forumdf.to_json(orient='records', lines=True)
+    forumdf = pd.read_sql_query("SELECT create_time, displayname, title, content FROM forums AS f JOIN users AS u ON u.id = f.writer ", con=engine)
+    forumdf['create_time'] = forumdf['create_time'].apply(lambda x: arrow.get(x).strftime('%Y-%m-%d %H:%M'))
+    returnJSON = forumdf.to_json(orient="values")
     return f'{returnJSON}'
 
 @app.route('/writeforum', methods=['POST'])
@@ -143,7 +149,7 @@ def writeforum():
     forum_title = forum_info["title"]
     forum_content = forum_info["content"]
     try:
-        stmt = text(f"INSERT INTO forums VALUES({uuid.uuid4}, {forum_writer}, {forum_title}, {forum_content}, NOW())")
+        stmt = insert(forums).values(writer=forum_writer, title=forum_title, content=forum_content)
         with engine.connect() as conn:
             result = conn.execute(stmt)
             conn.commit()
@@ -159,7 +165,7 @@ def addreply():
     reply_content = reply_info["content"]
     reply_forum_id = reply_info["forum_id"]
     try:
-        stmt = text(f"INSERT INTO replies VALUES({uuid.uuid4}, {reply_writer}, {reply_content}, {reply_forum_id}, NOW())")
+        stmt = text(f"INSERT INTO replies VALUES({uuid.uuid4()}, '{reply_writer}', '{reply_content}', '{reply_forum_id}', NOW())")
         with engine.connect() as conn:
             result = conn.execute(stmt)
             conn.commit()
@@ -188,9 +194,10 @@ def likeforum():
     like_info = request.get_json(force=True)
     like_user_id = like_info["user_id"]
     like_forum_id = like_info["forum_id"]
+    like_reply_id = like_info["reply_id"]
     like = like_info["like"]
     try:
-        stmt = text(f"INSERT INTO likes VALUES({like_user_id}, {like_forum_id}, NULL, {like})")
+        stmt = text(f"INSERT INTO likes VALUES({like_user_id}, {like_forum_id}, {like_reply_id}, NULL, {like})")
         with engine.connect() as conn:
             result = conn.execute(stmt)
             conn.commit()
@@ -198,6 +205,3 @@ def likeforum():
     except Exception as e:
         print(e)
         return "Error"
-
-if __name__ == '__main__':
-    app.run()
