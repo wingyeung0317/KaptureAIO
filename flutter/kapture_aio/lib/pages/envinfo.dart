@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,6 +25,14 @@ class _EnvInfoState extends State<EnvInfo> {
   var _reporttoday = json.decode('{"generalSituation": "Update Failed","tcInfo": "","fireDangerWarning": "","forecastPeriod": "Update Failed","forecastDesc": "Update Failed","outlook": "Update Failed","updateTime": "0001-01-01T00:00:00+08:00"}');
   var _reportfuture = json.decode('{"generalSituation": "Update Failed","weatherForecast": [{"forecastDate": "Update Failed","week": "Update Failed","forecastWind": "Update Failed","forecastWeather": "Update Failed","forecastMaxtemp": {"value": 0,"unit": "C"},"forecastMintemp": {"value": 0,"unit": "C"},"forecastMaxrh": {"value": 0,"unit": "percent"},"forecastMinrh": {"value": 0,"unit": "percent"},"ForecastIcon": 0,"PSR": "Update Failed"}, {"forecastDate": "00000000","week": "Update Failed","forecastWind": "Update Failed","forecastWeather": "Update Failed","forecastMaxtemp": {"value": 0,"unit": "C"},"forecastMintemp": {"value": 0,"unit": "C"},"forecastMaxrh": {"value": 0,"unit": "percent"},"forecastMinrh": {"value": 0,"unit": "percent"},"ForecastIcon": 0,"PSR": "Update Failed"}]}');
   var _uvvalue;
+  var w10o;
+  final List<String> _locations = [];
+
+  // W10o stand for weatherphoto
+  void _fetchW10o() async {
+    var _w10oFile = await rootBundle.loadString('assets/data/WeatherPhoto_updated.csv');
+    w10o = const CsvToListConverter().convert(_w10oFile);
+  }
 
   void _fetchVisibility() async {
     final response = await http.get(Uri.parse('https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=LTMV&lang=tc&rformat=csv'));
@@ -39,7 +48,7 @@ class _EnvInfoState extends State<EnvInfo> {
       throw Exception('Failed to load weather data');
     }
     setState(() {});
-    print(_visibilitydata);
+    // print(_visibilitydata);
   }
   
   void _fetchWeatherToday() async {
@@ -126,8 +135,8 @@ class _EnvInfoState extends State<EnvInfo> {
       throw Exception('Failed to load weather data');
     }
     setState(() {});
-    print(_weathertoday);
-    print(_weathertoday["icon"][0]);
+    // print(_weathertoday);
+    // print(_weathertoday["icon"][0]);
   }
 
   // fetch weather report from https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=flw&lang=tc
@@ -139,7 +148,7 @@ class _EnvInfoState extends State<EnvInfo> {
       throw Exception('Failed to load weather report data');
     }
     setState(() {});
-    print(_reporttoday);
+    // print(_reporttoday);
   }
 
   // fetch future weather report from https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=tc
@@ -151,7 +160,7 @@ class _EnvInfoState extends State<EnvInfo> {
       throw Exception('Failed to load future weather report data');
     }
     setState(() {});
-    print(_reportfuture);
+    // print(_reportfuture);
   }
   
   void _fetchUV() async {
@@ -165,7 +174,7 @@ class _EnvInfoState extends State<EnvInfo> {
       throw Exception('Failed to load UV data');
     }
     setState(() {});
-    print(_uvvalue);
+    // print(_uvvalue);
   }
 
   String mode = '';
@@ -235,7 +244,41 @@ class _EnvInfoState extends State<EnvInfo> {
           ],
           );
       case 'photo':
-        return MarkerLayer(markers: [],);
+        return MarkerLayer(markers: [
+          for(var i in w10o)
+            Marker(
+              point: LatLng(double.parse(i[1].toString()), double.parse(i[2].toString())),
+              width: 300,
+              alignment: Alignment.centerRight,
+              child: InkWell(
+                child:Container(
+                    decoration: BoxDecoration(
+                    border: Border(
+                      left: BorderSide(
+                      color: Colors.black87,
+                      width: 2,
+                      ),
+                    ),
+                  ),
+                  child:Text(i[0], style: TextStyle(fontSize: 16, color: Colors.deepPurple, backgroundColor: Colors.white)),),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(i[0]),
+                        content: Column(
+                          children: [
+                            MarkdownBody(data: i[3])
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              )
+            ),
+        ],);
       default: return MarkerLayer(markers: [],);
     }
   }
@@ -248,6 +291,7 @@ class _EnvInfoState extends State<EnvInfo> {
     _fetchWeatherReport();
     _fetchWeatherFuture();
     _fetchUV();
+    _fetchW10o();
   }
 
   @override

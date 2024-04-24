@@ -31,3 +31,4 @@ flutter:
   assets:
     - assets/lang/
     - assets/data/DCFeverRecommend.csv
+    - assets/data/WeatherPhoto_updated.csv
