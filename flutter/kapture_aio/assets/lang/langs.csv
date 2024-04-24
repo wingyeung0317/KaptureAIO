@@ -17,3 +17,8 @@ password,Password,密碼
 invalid_username,Not a valid username,非有效的Username
 invalid_password,Password must be >5 characters,密碼必須大於5個字元
 login_failed,Login failed,登入失敗
+temperature,Temperature,溫度
+rainfall,Rainfall,雨量
+visibility,Visibility,可見度
+weather_photo,Weather Photo,氣象圖片
+location,Location,地點

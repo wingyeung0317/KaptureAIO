@@ -6,7 +6,7 @@ part of 'i18n.dart';
 // LocalizationGenerator
 // **************************************************************************
 
-// Generated at: Sun, 21 Apr 2024 14:32:18 +08:00
+// Generated at: Wed, 24 Apr 2024 10:17:18 +08:00
 class I18n {
   static const supportedLocales = [Locale('en', 'US'), Locale('zh', 'HK')];
 
@@ -47,4 +47,19 @@ class I18n {
 
   // login
   static String get loginFailed => 'login_failed'.tr();
+
+  // temperature
+  static String get temperature => 'temperature'.tr();
+
+  // rainfall
+  static String get rainfall => 'rainfall'.tr();
+
+  // visibility
+  static String get visibility => 'visibility'.tr();
+
+  // weather
+  static String get weatherPhoto => 'weather_photo'.tr();
+
+  // location
+  static String get location => 'location'.tr();
 }

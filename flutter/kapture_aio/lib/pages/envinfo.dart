@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:kapture_aio/localization/i18n.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
 
@@ -332,7 +333,7 @@ class _EnvInfoState extends State<EnvInfo> {
                           mode = 'temperature';
                         });
                       },
-                      child: Text('Temperature'),
+                      child: Text(I18n.temperature),
                     ),),),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 5), child:
                   SizedBox(width: 180, child: 
@@ -343,7 +344,7 @@ class _EnvInfoState extends State<EnvInfo> {
                           mode = 'rainfall';
                         });
                       },
-                      child: Text('Rainfall'),
+                      child: Text(I18n.rainfall),
                     ),),),
               ]),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -353,7 +354,7 @@ class _EnvInfoState extends State<EnvInfo> {
                       onPressed: () {
                         setState(() {
                           _fetchVisibility();
-                          mode = 'visibility';
+                          mode = I18n.visibility;
                         });
                       },
                       child: Text('Visibility'),
@@ -366,7 +367,7 @@ class _EnvInfoState extends State<EnvInfo> {
                           mode = 'photo';
                         });
                       },
-                      child: Text('Weather Photo'),
+                      child: Text(I18n.weatherPhoto),
                     ),),),
               ]),
             ],

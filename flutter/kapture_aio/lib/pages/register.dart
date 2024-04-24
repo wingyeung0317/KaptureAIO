@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:kapture_aio/localization/i18n.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: _emailController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Email',
+                labelText: I18n.email,
               ),
             ),
             TextField(
@@ -51,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
               obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Password',
+                labelText: I18n.password,
               ),
             ),
             TextField(

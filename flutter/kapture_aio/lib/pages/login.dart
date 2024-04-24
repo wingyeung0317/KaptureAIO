@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:kapture_aio/constant/globals.dart' as globals;
+import 'package:kapture_aio/localization/i18n.dart';
 import 'register.dart';
 
 class LoginPage extends StatefulWidget {
@@ -56,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                 return AlertDialog(
                   backgroundColor: Colors.red,
                   title: Text('Failed'),
-                  content: Text('Login failed.'),
+                  content: Text(I18n.loginFailed),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () {
@@ -122,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.all(20),
                   child: ElevatedButton(
                     onPressed: login,
-                    child: Text('Login'),
+                    child: Text(I18n.login),
                   ),
                 ),
                 ElevatedButton(
