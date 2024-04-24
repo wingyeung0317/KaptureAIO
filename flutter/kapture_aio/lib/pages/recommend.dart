@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, prefer_const_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers, avoid_print, avoid_unnecessary_containers
+// ignore_for_file: avoid_print
 
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class Recommend extends StatefulWidget {
-  Recommend({super.key});
+  const Recommend({super.key});
 
   @override
   _RecommendState createState() => _RecommendState();
@@ -56,13 +56,13 @@ class _RecommendState extends State<Recommend> {
     return ListView(
       children: [
         Column(children: [
-          Text("Info from: https://www.dcfever.com/travel/hongkong.php"),
+          const Text("Info from: https://www.dcfever.com/travel/hongkong.php"),
           SizedBox(
             height: 420,
             child:
               FlutterMap(
-                key: Key('map'),
-                options: MapOptions(
+                key: const Key('map'),
+                options: const MapOptions(
                   initialCenter: LatLng(22.372192, 114.164579),
                   initialZoom: 10.2,
                 ),
@@ -81,7 +81,7 @@ class _RecommendState extends State<Recommend> {
                           alignment: Alignment.centerRight,
                           child: InkWell(
                             child:Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                 border: Border(
                                   left: BorderSide(
                                   color: Colors.black87,
@@ -89,7 +89,7 @@ class _RecommendState extends State<Recommend> {
                                   ),
                                 ),
                               ),
-                              child:Text(i[0], style: TextStyle(fontSize: 16, color: Colors.deepPurple, backgroundColor: Colors.white)),),
+                              child:Text(i[0], style: const TextStyle(fontSize: 16, color: Colors.deepPurple, backgroundColor: Colors.white)),),
                             onTap: () {
                               _onSelected(i[0]);
                             },
@@ -101,7 +101,7 @@ class _RecommendState extends State<Recommend> {
               ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 15),
+            margin: const EdgeInsets.only(top: 15),
             child: 
               DropdownMenu<String>(
                 width: 300,

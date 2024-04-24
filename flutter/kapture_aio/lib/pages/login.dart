@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -8,7 +10,7 @@ import 'register.dart';
 
 class LoginPage extends StatefulWidget {
   final Function updateHomeState;
-  LoginPage({required this.updateHomeState});
+  const LoginPage({required this.updateHomeState});
   @override
   _LoginPageState createState() => _LoginPageState(updateHomeState: updateHomeState);
 }
@@ -56,14 +58,14 @@ class _LoginPageState extends State<LoginPage> {
               builder: (BuildContext context) {
                 return AlertDialog(
                   backgroundColor: Colors.red,
-                  title: Text('Failed'),
+                  title: const Text('Failed'),
                   content: Text(I18n.loginFailed),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text('OK', style: TextStyle(fontSize: 22)),
+                      child: const Text('OK', style: TextStyle(fontSize: 22)),
                     ),
                   ],
                 );
@@ -78,14 +80,14 @@ class _LoginPageState extends State<LoginPage> {
           builder: (BuildContext context) {
             return AlertDialog(
               backgroundColor: Colors.red,
-              title: Text('Failed'),
-              content: Text('Connection failed.'),
+              title: const Text('Failed'),
+              content: const Text('Connection failed.'),
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('OK', style: TextStyle(fontSize: 22)),
+                  child: const Text('OK', style: TextStyle(fontSize: 22)),
                 ),
               ],
             );
@@ -103,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             TextField(
               controller: _usernameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Username',
               ),
@@ -111,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: _passwordController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Password',
               ),
@@ -120,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: ElevatedButton(
                     onPressed: login,
                     child: Text(I18n.login),
@@ -133,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                       MaterialPageRoute(builder: (context) => RegisterPage()),
                     );
                   },
-                  child: Text('Register'),
+                  child: const Text('Register'),
                 ),
               ],
             ),

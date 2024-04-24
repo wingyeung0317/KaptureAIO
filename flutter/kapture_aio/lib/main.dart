@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, prefer_final_fields, prefer_const_constructors_in_immutables
 import 'package:kapture_aio/constant/globals.dart' as globals;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:kapture_aio/pages/camera.dart';
 import 'package:kapture_aio/pages/envinfo.dart';
 import 'package:kapture_aio/pages/forum/forum.dart';
@@ -22,7 +20,7 @@ Future<void> main() async {
     supportedLocales: I18n.supportedLocales, 
     path: 'assets/lang/langs.csv', 
     assetLoader: CsvAssetLoader(),
-    child: KaptureAIO(), 
+    child: const KaptureAIO(), 
     )
   );
 }
@@ -54,7 +52,7 @@ class KaptureAIO extends StatelessWidget {
 }
 
 class Home extends StatefulWidget {
-  Home({super.key, required this.title});
+  const Home({super.key, required this.title});
   final String title;
   @override
   State<Home> createState() => _HomeState();
@@ -114,7 +112,7 @@ class _HomeState extends State<Home> {
               height: 280,
               child: 
                 DrawerHeader(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -127,10 +125,10 @@ class _HomeState extends State<Home> {
                         radius: 40,
                         backgroundImage: NetworkImage(globals.userimg),
                       ),
-                      Text(globals.displayname, style: TextStyle(color: Colors.white, fontSize: 20)), //Todo: Change to user name
-                      Text(globals.role, style: TextStyle(color: Colors.white, fontSize: 15)), //Todo: Change to user role
+                      Text(globals.displayname, style: const TextStyle(color: Colors.white, fontSize: 20)),
+                      Text(globals.role, style: const TextStyle(color: Colors.white, fontSize: 15)),
                       Container(
-                        margin: EdgeInsets.only(top: 10),
+                        margin: const EdgeInsets.only(top: 10),
                         child: ElevatedButton(
                           onPressed: () {
                             _onItemTapped(4);

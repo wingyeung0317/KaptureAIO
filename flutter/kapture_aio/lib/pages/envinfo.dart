@@ -3,10 +3,8 @@
 import 'dart:convert';
 
 import 'package:csv/csv.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:kapture_aio/localization/i18n.dart';
@@ -14,7 +12,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
 
 class EnvInfo extends StatefulWidget {
-  EnvInfo({super.key});
+  const EnvInfo({super.key});
 
   @override
   _EnvInfoState createState() => _EnvInfoState();
@@ -49,7 +47,7 @@ class _EnvInfoState extends State<EnvInfo> {
       throw Exception('Failed to load weather data');
     }
     setState(() {});
-    // print(_visibilitydata);
+    print(_visibilitydata);
   }
   
   void _fetchWeatherToday() async {
@@ -167,7 +165,7 @@ class _EnvInfoState extends State<EnvInfo> {
   void _fetchUV() async {
     final response = await http.get(Uri.parse('https://data.weather.gov.hk/weatherAPI/hko_data/regional-weather/latest_15min_uvindex_uc.csv'));
     if(response.statusCode == 200) {
-      _uvvalue = await response.body
+      _uvvalue = response.body
         .split('\n').map((line) => line.split(',')).where((line) => line.length > 1).toList();
       _uvvalue.removeAt(0);
       _uvvalue = _uvvalue[0][1];
@@ -354,10 +352,10 @@ class _EnvInfoState extends State<EnvInfo> {
                       onPressed: () {
                         setState(() {
                           _fetchVisibility();
-                          mode = I18n.visibility;
+                          mode = 'visibility';
                         });
                       },
-                      child: Text('Visibility'),
+                      child: Text(I18n.visibility),
                     ),),),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 5), child:
                   SizedBox(width: 180, child: 

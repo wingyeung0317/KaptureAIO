@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -5,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:kapture_aio/localization/i18n.dart';
 
 class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
@@ -20,15 +24,15 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        title: const Text('Register'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
             TextField(
               controller: _usernameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Username',
               ),
@@ -36,13 +40,13 @@ class _RegisterPageState extends State<RegisterPage> {
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 labelText: I18n.email,
               ),
             ),
             TextField(
               controller: _displayNameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Display Name',
               ),
@@ -51,14 +55,14 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: _passwordController,
               obscureText: true,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 labelText: I18n.password,
               ),
             ),
             TextField(
               controller: _imgController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Image URL',
               ),
@@ -93,15 +97,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           backgroundColor: Colors.green,
-                          title: Text('Success'),
-                          content: Text('You have registered successfully.'),
+                          title: const Text('Success'),
+                          content: const Text('You have registered successfully.'),
                           actions: <Widget>[
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 Navigator.pop(context);
                               },
-                              child: Text('OK', style: TextStyle(fontSize: 22)),
+                              child: const Text('OK', style: TextStyle(fontSize: 22)),
                             ),
                           ],
                         );
@@ -113,14 +117,14 @@ class _RegisterPageState extends State<RegisterPage> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           backgroundColor: Colors.red,
-                          title: Text('Failed'),
-                          content: Text('Username or Email is already used.'),
+                          title: const Text('Failed'),
+                          content: const Text('Username or Email is already used.'),
                           actions: <Widget>[
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: Text('OK', style: TextStyle(fontSize: 22)),
+                              child: const Text('OK', style: TextStyle(fontSize: 22)),
                             ),
                           ],
                         );
@@ -133,7 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   throw Exception('Connection Error');
                 }
               },
-              child: Text('Register'),
+              child: const Text('Register'),
             ),
           ],
         ),
