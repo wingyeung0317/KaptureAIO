@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:kapture_aio/constant/globals.dart' as globals;
 import 'register.dart';
@@ -23,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
         'password': _passwordController.text,
       }));
     final response = await http.post(
-      Uri.parse('http://192.168.1.100:5000/login'),
+      Uri.parse('http://${dotenv.env['FLASK']}/login'),
       body: jsonEncode(<String, String>{
         'username': _usernameController.text,
         'password': _passwordController.text,
@@ -71,6 +72,24 @@ class _LoginPageState extends State<LoginPage> {
         }
     } else {
       // If the server returns an unsuccessful response code, throw an exception.
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: Colors.red,
+              title: Text('Failed'),
+              content: Text('Connection failed.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK', style: TextStyle(fontSize: 22)),
+                ),
+              ],
+            );
+          },
+        );
       throw Exception('Connection Error');
     }
   }

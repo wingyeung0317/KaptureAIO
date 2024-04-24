@@ -1,3 +1,5 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kapture_aio/constant/globals.dart' as globals;
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -21,7 +23,7 @@ class _ForumPageState extends State<ForumPage> {
   }
 
   Future<void> fetchForums() async {
-    final response = await http.get(Uri.parse('http://192.168.1.100:5000/getforum'));
+    final response = await http.get(Uri.parse('http://${dotenv.env['FLASK']}/getforum'));
     if (response.statusCode == 200) {
       print(response.body.toString());
       forums = jsonDecode(response.body);
@@ -38,7 +40,7 @@ class _ForumPageState extends State<ForumPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GestureDetector(onTapDown:(details) => fetchForums(), child:ListView(reverse: true, children: [
+      body: GestureDetector(onTapDown:(details) => fetchForums(), child:ListView(children: [
         for (var i in forums)
           Card(color: Color.fromARGB(255, 221, 252, 244), child: ListTile(
             title: Text(i[2], style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),

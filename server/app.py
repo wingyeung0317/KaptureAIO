@@ -137,7 +137,7 @@ def register():
 
 @app.route('/getforum', methods=['GET'])
 def getforum():
-    forumdf = pd.read_sql_query("SELECT create_time, displayname, title, content FROM forums AS f JOIN users AS u ON u.id = f.writer ", con=engine)
+    forumdf = pd.read_sql_query("SELECT create_time, displayname, title, content FROM forums AS f JOIN users AS u ON u.id = f.writer ORDER BY f.id DESC", con=engine)
     forumdf['create_time'] = forumdf['create_time'].apply(lambda x: arrow.get(x).strftime('%Y-%m-%d %H:%M'))
     returnJSON = forumdf.to_json(orient="values")
     return f'{returnJSON}'

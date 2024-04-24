@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {
@@ -64,7 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ElevatedButton(
               onPressed: () async {
                 final response = await http.post(
-                  Uri.parse('http://192.168.1.100:5000/register'),
+                  Uri.parse('http://${dotenv.env['FLASK']}/register'),
                   headers: <String, String>{
                     'Content-Type': 'application/json; charset=UTF-8',
                   },

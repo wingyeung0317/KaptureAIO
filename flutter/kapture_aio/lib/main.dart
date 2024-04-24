@@ -10,11 +10,13 @@ import 'package:kapture_aio/pages/forum/forum.dart';
 import 'package:kapture_aio/pages/login.dart';
 import 'package:kapture_aio/pages/recommend.dart';
 import 'package:kapture_aio/localization/i18n.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 var ctx;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   runApp(
     EasyLocalization(
     supportedLocales: I18n.supportedLocales, 
