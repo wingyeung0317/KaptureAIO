@@ -21,7 +21,6 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy import Boolean, Column, ForeignKey, BigInteger, Integer, String, TIMESTAMP, Table, MetaData, update, text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
-import json
 import arrow
 
 import localconst # Save your sql connection data into localconst.py
