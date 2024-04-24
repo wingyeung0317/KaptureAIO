@@ -25,7 +25,6 @@ class _EnvInfoState extends State<EnvInfo> {
   var _reportfuture = json.decode('{"generalSituation": "Update Failed","weatherForecast": [{"forecastDate": "Update Failed","week": "Update Failed","forecastWind": "Update Failed","forecastWeather": "Update Failed","forecastMaxtemp": {"value": 0,"unit": "C"},"forecastMintemp": {"value": 0,"unit": "C"},"forecastMaxrh": {"value": 0,"unit": "percent"},"forecastMinrh": {"value": 0,"unit": "percent"},"ForecastIcon": 0,"PSR": "Update Failed"}, {"forecastDate": "00000000","week": "Update Failed","forecastWind": "Update Failed","forecastWeather": "Update Failed","forecastMaxtemp": {"value": 0,"unit": "C"},"forecastMintemp": {"value": 0,"unit": "C"},"forecastMaxrh": {"value": 0,"unit": "percent"},"forecastMinrh": {"value": 0,"unit": "percent"},"ForecastIcon": 0,"PSR": "Update Failed"}]}');
   var _uvvalue;
   var w10o;
-  final List<String> _locations = [];
 
   // W10o stand for weatherphoto
   void _fetchW10o() async {

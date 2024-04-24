@@ -42,8 +42,8 @@ class _ForumPageState extends State<ForumPage> {
     return Scaffold(
       body: GestureDetector(onTapDown:(details) => fetchForums(), child:ListView(children: [
         for (var i in forums)
-          Card(color: Color.fromARGB(255, 221, 252, 244), child: ListTile(
-            title: Text(i[2], style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Card(color: const Color.fromARGB(255, 221, 252, 244), child: ListTile(
+            title: Text(i[2], style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             subtitle: MarkdownBody(data:"${i[3]}\n\n`by: ${i[1]}`\\\n`${i[0]}`"),
             onTap: () {
               // Navigate to forum detail page
@@ -57,10 +57,10 @@ class _ForumPageState extends State<ForumPage> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('Add a new forum'),
+                title: const Text('Add a new forum'),
                 content: Column(children: [
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Enter forum name',
                     ),
                     // Store the input value to a variable
@@ -72,7 +72,7 @@ class _ForumPageState extends State<ForumPage> {
                   Expanded(child: TextFormField(
                     maxLines: null,
                     expands: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Enter forum content (Allow MarkDown format)',
                     ),
                     // Store the input value to a variable
@@ -84,13 +84,13 @@ class _ForumPageState extends State<ForumPage> {
                 ],),
                 actions: <Widget>[
                   TextButton(
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text('Submit'),
+                    child: const Text('Submit'),
                     onPressed: () async {
                       // Add your submit logic here
                       final forumInfo = {
@@ -100,7 +100,7 @@ class _ForumPageState extends State<ForumPage> {
                       };
 
                       final response = await http.post(
-                        Uri.parse('http://192.168.1.100:5000/writeforum'),
+                        Uri.parse('http://${dotenv.env['FLASK']}/writeforum'),
                         headers: <String, String>{
                           'Content-Type': 'application/json; charset=UTF-8',
                         },
@@ -122,7 +122,7 @@ class _ForumPageState extends State<ForumPage> {
           );
           fetchForums();
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
