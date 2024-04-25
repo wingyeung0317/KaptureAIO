@@ -5,6 +5,8 @@
 <h1>KaptureAIO : 港攝ＡＩＯ</h1>
 <p>This is a project that aim to build an android app that provide different photographic informations for Hong Konger, such as Weather, Place, Forum etc. </p>
 
+[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/wingyeung0317) [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/wingyeung0317) [![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://patreon.com/wingyeung0317) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/wingyeung0317) 
+
 ![KaptureAIO Poster](https://github.com/wingyeung0317/KaptureAIO/assets/121206892/fe800e46-d69e-4c00-a1aa-bf27d79d5bec)
 
 
@@ -171,13 +173,7 @@ Project Link: https://github.com/wingyeung0317/KaptureAIO
 
 Section to mention useful resources and libraries.
 
-- [i18n](https://yiichenhi.medium.com/flutter-%E8%BC%95%E9%AC%86%E5%AF%A6%E4%BD%9C-i18n-%E4%BD%BF%E7%94%A8-easy-localization-generator-%E5%B0%B1%E5%B0%8D%E4%BA%86-20a91d8b4f2a)
-- [Flask](https://flask.palletsprojects.com/en/3.0.x/)
-- [SQLAlchemy](https://www.sqlalchemy.org)
-- [flutter_map](https://docs.fleaflet.dev)
-- [webview_flutter](https://pub.dev/packages/webview_flutter)
-- [flutter_markdown](https://pub.dev/packages/flutter_markdown)
-- [flutter_dotenv](https://pub.dev/packages/flutter_dotenv)
-- [Docker](https://www.youtube.com/results?search_query=docker+tutorial)
-- [Sublime Merge](https://www.sublimemerge.com)
-- [VSCode](https://code.visualstudio.com)
+[i18n](https://yiichenhi.medium.com/flutter-%E8%BC%95%E9%AC%86%E5%AF%A6%E4%BD%9C-i18n-%E4%BD%BF%E7%94%A8-easy-localization-generator-%E5%B0%B1%E5%B0%8D%E4%BA%86-20a91d8b4f2a) · [Flask](https://flask.palletsprojects.com/en/3.0.x/) · [SQLAlchemy](https://www.sqlalchemy.org) · [flutter_map](https://docs.fleaflet.dev) · [webview_flutter](https://pub.dev/packages/webview_flutter) · [flutter_markdown](https://pub.dev/packages/flutter_markdown) · [flutter_dotenv](https://pub.dev/packages/flutter_dotenv) · [Docker](https://www.youtube.com/results?search_query=docker+tutorial) · [Sublime Merge](https://www.sublimemerge.com) · [VSCode](https://code.visualstudio.com)
+
+## 💰 You can help me by Donating
+[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/wingyeung0317) [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/wingyeung0317) [![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://patreon.com/wingyeung0317) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/wingyeung0317) 
