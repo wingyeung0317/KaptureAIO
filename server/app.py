@@ -22,12 +22,14 @@ from sqlalchemy import Boolean, Column, ForeignKey, BigInteger, Integer, String,
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 import arrow
+from os import getenv as env
+from dotenv import load_dotenv
 
-import localconst # Save your sql connection data into localconst.py
-db_user = localconst.user
-db_password = localconst.password
-db_hostname = localconst.hostname
-db_database_name = localconst.database_name
+load_dotenv()
+db_user = env("USER")
+db_password = env("PASSWORD")
+db_hostname = env("HOST")
+db_database_name = env("DATABASE")
 
 app = Flask(__name__)
 # CORS(app)

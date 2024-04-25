@@ -1,19 +1,23 @@
 version: '3'
 
 services:
-  api:
-    build: .
-    ports:
-      - "5000:5000"
   db:
     image: postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD}
+      POSTGRES_PASSWORD: ${PASSWORD}
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+  api:
+    build: .
+    ports:
+      - "5000:5000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - db
       
 volumes:
   pgdata:
