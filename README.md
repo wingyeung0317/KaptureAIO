@@ -4,6 +4,10 @@
 
 <h1>KaptureAIO : 港攝ＡＩＯ</h1>
 <p>This is a project that aim to build an android app that provide different photographic informations for Hong Konger, such as Weather, Place, Forum etc. </p>
+
+![KaptureAIO Poster](https://github.com/wingyeung0317/KaptureAIO/assets/121206892/fe800e46-d69e-4c00-a1aa-bf27d79d5bec)
+
+
 <p>
 
 **Tag:**
