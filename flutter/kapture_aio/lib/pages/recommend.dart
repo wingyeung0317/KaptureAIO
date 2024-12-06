@@ -4,6 +4,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 import 'package:latlong2/latlong.dart';
 
 class Recommend extends StatefulWidget {
@@ -68,8 +69,10 @@ class _RecommendState extends State<Recommend> {
                 ),
                 children: [
                   TileLayer(
-                      urlTemplate: 'http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png',
+                      urlTemplate: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
+                      // urlTemplate: 'http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png',
                       userAgentPackageName: 'com.example.app',
+                      tileProvider: CancellableNetworkTileProvider(),
                   ),
                   
                   MarkerLayer(

@@ -6,6 +6,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:kapture_aio/localization/i18n.dart';
 import 'package:latlong2/latlong.dart';
@@ -307,9 +308,10 @@ class _EnvInfoState extends State<EnvInfo> {
                 ),
                 children: [
                   TileLayer(
-                      // urlTemplate: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
-                      urlTemplate: 'http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png',
+                      urlTemplate: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
+                      // urlTemplate: 'http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png',
                       userAgentPackageName: 'com.example.app',
+                      tileProvider: CancellableNetworkTileProvider(),
                   ),
                   mapmarkers()
                 ]),
