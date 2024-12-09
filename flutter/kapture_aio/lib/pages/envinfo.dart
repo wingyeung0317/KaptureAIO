@@ -308,8 +308,8 @@ class _EnvInfoState extends State<EnvInfo> {
                 ),
                 children: [
                   TileLayer(
-                      urlTemplate: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
-                      // urlTemplate: 'http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png',
+                      // urlTemplate: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
+                      urlTemplate: 'https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png',
                       userAgentPackageName: 'com.example.app',
                       tileProvider: CancellableNetworkTileProvider(),
                   ),

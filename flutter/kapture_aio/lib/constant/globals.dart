@@ -39,6 +39,7 @@ enum PageIndex{
   r7d,
   forum,
   login,
+  book,
 }
 
 enum Role{
