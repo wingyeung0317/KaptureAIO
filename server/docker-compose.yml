@@ -10,14 +10,37 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-  api:
-    build: .
+  api_flask:
+    build: ./api_flask/.
     ports:
       - "5000:5000"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
       - db
-      
+  php_api:
+    build:
+      context: ./api_book/.
+      args:
+        ROOT_PASSWORD: ${ROOT_PASSWORD}
+    ports:
+      - "8083:80"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASS: ${MYSQL_ROOT_PASSWORD}
+      DB_NAME: elibrary
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: phpbb
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "8306:3306"
 volumes:
+  db_data:
   pgdata:

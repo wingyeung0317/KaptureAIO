@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/navigation_frame.dart';
-import '../../widgets/book_form.dart';
+import '../../widgets/camera_form.dart';
 
 class AddBookPage extends StatefulWidget {
   AddBookPage({super.key});
@@ -13,7 +13,7 @@ class _AddBookPageState extends State<AddBookPage> {
   Widget build(BuildContext context) {
     return NavigationFrame(
       selectedIndex: 1,
-      child: Container(width: 600, child: BookForm(mode: 0)),
+      child: Container(width: 600, child: CameraForm(mode: 0)),
     );
   }
 }

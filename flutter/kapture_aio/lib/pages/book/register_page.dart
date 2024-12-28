@@ -104,7 +104,7 @@ class _BookRegisterPageState extends State<BookRegisterPage> {
 
     if (await apiRegister(_usernameController.text, _passwordController.text, _repeatedPasswordController.text)) {
       message = 'Successfully registered your account.';
-      Navigator.of(context).pushNamed("/login");
+      Navigator.of(context).pushNamed("/book/login");
     }
 
     ScaffoldMessenger.of(context).showSnackBar(

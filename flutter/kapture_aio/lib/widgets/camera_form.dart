@@ -19,11 +19,13 @@ class _CameraFormState extends State<CameraForm> {
 
   String? _validateBrand(String? value) {
     if (value == null || value.isEmpty) return 'Brand cannot be empty.';
+    if (value.length > 16) return 'Brand cannot exceed 16 characters.';
     return null;
   }
 
   String? _validateModel(String? value) {
     if (value == null || value.isEmpty) return 'Model cannot be empty.';
+    if (value.length > 32) return 'Model cannot exceed 32 characters.';
     return null;
   }
 
@@ -34,6 +36,7 @@ class _CameraFormState extends State<CameraForm> {
 
   String? _validateStatus(String? value) {
     if (value == null || value.isEmpty) return 'Status cannot be empty.';
+    if (!['-1', '0', '1'].contains(value)) return 'Invalid status value.';
     return null;
   }
 
@@ -67,7 +70,7 @@ class _CameraFormState extends State<CameraForm> {
           ),
           InputBox(
             name: "Status",
-            hint: "e.g. Available",
+            hint: "e.g. 1",
             controller: _statusController,
             validator: _validateStatus,
           ),

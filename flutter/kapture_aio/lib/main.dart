@@ -11,11 +11,12 @@ import 'package:kapture_aio/localization/i18n.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kapture_aio/pages/book/home_page.dart';
 import 'package:kapture_aio/pages/book/add_book_page.dart';
-import 'package:kapture_aio/pages/book/booklist_page.dart';
+import 'package:kapture_aio/pages/book/cameralist_page.dart';
 import 'package:kapture_aio/pages/book/login_page.dart';
 import 'package:kapture_aio/pages/book/register_page.dart';
 import 'package:kapture_aio/pages/book/my_records_page.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 var ctx;
 Future<void> main() async {
@@ -58,9 +59,10 @@ class KaptureAIO extends StatelessWidget {
         '/book/login': (context) => BookLoginPage(),
         '/book/home': (context) => HomePage(),
         '/book/add': (context) => AddBookPage(),
-        '/book/booklist': (context) => BooklistPage(),
+        '/book/cameralist': (context) => CameralistPage(),
         '/book/myrecords': (context) => MyRecordsPage(),
         '/book/register': (context) => BookRegisterPage(),
+        '/book/phpbb': (context) => PhpbbPage(), // 新增的路由
       },
     );
   }
@@ -211,5 +213,28 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+}
+
+class PhpbbPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    _launchURL('http://localhost:8083/phpbb');
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Phpbb Forum'),
+      ),
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

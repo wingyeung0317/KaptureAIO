@@ -3,7 +3,7 @@ import '../../widgets/navigation_frame.dart';
 import '../../api.dart';
 
 class MyRecordsPage extends StatefulWidget {
-  List<Map<String, dynamic>> booklist = [];
+  List<Map<String, dynamic>> cameralist = [];
 
   MyRecordsPage({super.key});
 
@@ -30,8 +30,8 @@ class _MyRecordsPageState extends State<MyRecordsPage> {
                     return snapshot.data!.length > 0
                         ? ListView(
                             children: [
-                              for (var book in snapshot.data!)
-                                createBookRecord(book)
+                              for (var camera in snapshot.data!)
+                                createCameraRecord(camera)
                             ],
                           )
                         : Text("No records found.",
@@ -45,32 +45,30 @@ class _MyRecordsPageState extends State<MyRecordsPage> {
             )));
   }
 
-  Widget createBookRecord(Map<String, dynamic> book) {
+  Widget createCameraRecord(Map<String, dynamic> camera) {
     return Card(
       child: ListTile(
         onTap: () {
-          popupReturnDialog(book);
+          popupReturnDialog(camera);
         },
-        leading: Icon(Icons.book, size: 48),
+        leading: Icon(Icons.camera_alt, size: 48),
         title:
-            Text(book["title"], style: TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(book["authors"] +
+            Text(camera["brand"], style: TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(camera["model"] +
             ", " +
-            book['publishers'] +
+            camera['description'] +
             ", " +
-            book["date"] +
-            "\nISBN: " +
-            book["isbn"]),
+            camera["status"]),
       ),
     );
   }
 
-  void popupReturnDialog(Map<String, dynamic> book) {
+  void popupReturnDialog(Map<String, dynamic> camera) {
     showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-              title: const Text('Return Book'),
-              content: Text('Do you want to return ' + book["title"] + '?'),
+              title: const Text('Return Camera'),
+              content: Text('Do you want to return ' + camera["brand"] + '?'),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -78,7 +76,7 @@ class _MyRecordsPageState extends State<MyRecordsPage> {
                 ),
                 TextButton(
                   onPressed: () {
-                    returnBook(int.parse(book["book_id"]));
+                    returnCamera(int.parse(camera["camera_id"].toString()));
                     Navigator.pop(context, 'Confirm');
                   },
                   child: const Text('Confirm'),
@@ -87,13 +85,13 @@ class _MyRecordsPageState extends State<MyRecordsPage> {
             ));
   }
 
-  Future<void> returnBook(int bookId) async {
-    String message = "Failed to return the book.";
+  Future<void> returnCamera(int cameraId) async {
+    String message = "Failed to return the camera.";
 
-    if (await apiReturnBook(bookId) == true) {
-      message = "The book has been returned successfully.";
+    if (await apiReturnCamera(cameraId) == true) {
+      message = "The camera has been returned successfully.";
 
-      Navigator.of(context).pushNamed("/myrecords");
+      Navigator.of(context).pushNamed("/book/myrecords");
     }
 
     ScaffoldMessenger.of(context).showSnackBar(

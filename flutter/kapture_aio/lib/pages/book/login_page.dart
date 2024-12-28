@@ -127,7 +127,7 @@ class _BookLoginPageState extends State<BookLoginPage> {
     if (await apiLogin(_usernameController.text, _passwordController.text)) {
       message = 'Successfully login to your account.';
       setCookie("logged_in_user", _usernameController.text); // 設置登錄用戶名到 cookies
-      Navigator.of(context).pushNamed("/home");
+      Navigator.of(context).pushNamed("/book/home");
     }
 
     ScaffoldMessenger.of(context).showSnackBar(

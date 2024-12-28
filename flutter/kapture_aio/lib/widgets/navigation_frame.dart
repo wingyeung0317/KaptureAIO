@@ -28,24 +28,27 @@ class _NavigationFrameState extends State<NavigationFrame> {
             widget.selectedIndex = index;
             switch (index) {
               case 0:
-                Navigator.of(context).pushNamed("/home");
+                Navigator.of(context).pushNamed("/book/home");
                 break;
               case 1:
-                Navigator.of(context).pushNamed("/add");
+                Navigator.of(context).pushNamed("/book/add");
                 break;
               case 2:
-                Navigator.of(context).pushNamed("/booklist");
+                Navigator.of(context).pushNamed("/book/cameralist");
                 break;
               case 3:
-                Navigator.of(context).pushNamed("/myrecords");
+                Navigator.of(context).pushNamed("/book/myrecords");
                 break;
               case 4:
                 logout();
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/', (Route<dynamic> route) => false);
+                    '/book', (Route<dynamic> route) => false);
+                break;
+              case 5:
+                Navigator.of(context).pushNamed("/book/phpbb");
                 break;
               default:
-                Navigator.of(context).pushNamed("/");
+                Navigator.of(context).pushNamed("/book");
             }
           });
         },
@@ -59,12 +62,12 @@ class _NavigationFrameState extends State<NavigationFrame> {
           NavigationRailDestination(
             icon: Icon(Icons.my_library_add_outlined),
             selectedIcon: Icon(Icons.my_library_add),
-            label: Text('Add Book'),
+            label: Text('Add Camera'),
           ),
           NavigationRailDestination(
             icon: Icon(Icons.library_books_outlined),
             selectedIcon: Icon(Icons.library_books),
-            label: Text('Book List'),
+            label: Text('Camera List'),
           ),
           NavigationRailDestination(
             icon: Icon(Icons.book_outlined),
@@ -75,6 +78,11 @@ class _NavigationFrameState extends State<NavigationFrame> {
             icon: Icon(Icons.logout_outlined),
             selectedIcon: Icon(Icons.logout),
             label: Text('Logout'),
+          ),
+          NavigationRailDestination(
+            icon: Icon(Icons.forum),
+            selectedIcon: Icon(Icons.forum_outlined),
+            label: Text('PhpBB'),
           ),
         ],
       ), //Container 1

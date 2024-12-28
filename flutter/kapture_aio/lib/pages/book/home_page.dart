@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
     return NavigationFrame(
         selectedIndex: 0,
         child: Container(
-            child: Text("EEE4482 e-Library\nWelcome, " + username,
+            child: Text("Camera Rental System\nWelcome, " + username,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 48,

@@ -13,27 +13,26 @@ http.Client getCredentialsClient() {
   return client;
 }
 
-Future<List<dynamic>> apiGetAllBooks() async {
+Future<List<dynamic>> apiGetAllCameras() async {
   var client = getCredentialsClient();
   final response = await client.get(Uri.parse(API_ENDPOINT + '/api/books/all'));
   client.close();
-  List<dynamic> bookList = [];
+  List<dynamic> cameraList = [];
   if (response.statusCode == 200) {
     try {
       print(response.body); //for debug
       var jsonResponse = jsonDecode(response.body);
-      bookList = jsonResponse;
+      cameraList = jsonResponse;
     } catch (e) {
-      bookList = [];
+      cameraList = [];
     }
   } else {
     throw Exception('Failed to load data');
   }
-  return bookList;
+  return cameraList;
 }
 
-Future<bool> apiAddBook(String title, String authors, String publishers,
-    String date, String isbn) async {
+Future<bool> apiAddCamera(String brand, String model, String description, String status) async {
   var client = getCredentialsClient();
   final response = await client.post(
     Uri.parse(API_ENDPOINT + '/api/books/add'),
@@ -41,11 +40,10 @@ Future<bool> apiAddBook(String title, String authors, String publishers,
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
-      'title': title,
-      'authors': authors,
-      'publishers': publishers,
-      'date': date,
-      'isbn': isbn
+      'brand': brand,
+      'model': model,
+      'description': description,
+      'status': status
     }),
   );
   client.close();
@@ -61,20 +59,18 @@ Future<bool> apiAddBook(String title, String authors, String publishers,
   }
 }
 
-Future<bool> apiUpdateBook(int bookId, String title, String authors,
-    String publishers, String date, String isbn) async {
+Future<bool> apiUpdateCamera(int cameraId, String brand, String model, String description, String status) async {
   var client = getCredentialsClient();
   final response = await client.put(
-    Uri.parse(API_ENDPOINT + '/api/books/update/' + bookId.toString()),
+    Uri.parse(API_ENDPOINT + '/api/books/update/' + cameraId.toString()),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
-      'title': title,
-      'authors': authors,
-      'publishers': publishers,
-      'date': date,
-      'isbn': isbn
+      'brand': brand,
+      'model': model,
+      'description': description,
+      'status': status
     }),
   );
   client.close();
@@ -90,10 +86,44 @@ Future<bool> apiUpdateBook(int bookId, String title, String authors,
   }
 }
 
-Future<bool> apiDeleteBook(int bookId) async {
+Future<bool> apiDeleteCamera(int cameraId) async {
   var client = getCredentialsClient();
   final response = await client.delete(
-      Uri.parse(API_ENDPOINT + '/api/books/delete/' + bookId.toString()));
+      Uri.parse(API_ENDPOINT + '/api/books/delete/' + cameraId.toString()));
+  client.close();
+  if (response.statusCode == 200) {
+    var jsonResponse = jsonDecode(response.body);
+    if (jsonResponse != false) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
+Future<bool> apiBorrowCamera(int cameraId) async {
+  var client = getCredentialsClient();
+  final response = await client
+      .get(Uri.parse(API_ENDPOINT + '/api/books/borrow/' + cameraId.toString()));
+  client.close();
+  if (response.statusCode == 200) {
+    var jsonResponse = jsonDecode(response.body);
+    if (jsonResponse != false) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
+Future<bool> apiReturnCamera(int cameraId) async {
+  var client = getCredentialsClient();
+  final response = await client
+      .get(Uri.parse(API_ENDPOINT + '/api/books/return/' + cameraId.toString()));
   client.close();
   if (response.statusCode == 200) {
     var jsonResponse = jsonDecode(response.body);
@@ -182,52 +212,18 @@ Future<List<dynamic>> apiGetMyRecords() async {
   final response =
       await client.get(Uri.parse(API_ENDPOINT + '/api/users/myrecords'));
   client.close();
-  List<dynamic> bookList = [];
+  List<dynamic> recordList = [];
   if (response.statusCode == 200) {
     try {
       // print(response.body); //for debug
       // print(response.headers);
       var jsonResponse = jsonDecode(response.body);
-      bookList = jsonResponse;
+      recordList = jsonResponse;
     } catch (e) {
-      bookList = [];
+      recordList = [];
     }
   } else {
     throw Exception('Failed to load data');
   }
-  return bookList;
-}
-
-Future<bool> apiBorrowBook(int bookId) async {
-  var client = getCredentialsClient();
-  final response = await client
-      .get(Uri.parse(API_ENDPOINT + '/api/books/borrow/' + bookId.toString()));
-  client.close();
-  if (response.statusCode == 200) {
-    var jsonResponse = jsonDecode(response.body);
-    if (jsonResponse != false) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    return false;
-  }
-}
-
-Future<bool> apiReturnBook(int bookId) async {
-  var client = getCredentialsClient();
-  final response = await client
-      .get(Uri.parse(API_ENDPOINT + '/api/books/return/' + bookId.toString()));
-  client.close();
-  if (response.statusCode == 200) {
-    var jsonResponse = jsonDecode(response.body);
-    if (jsonResponse != false) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    return false;
-  }
+  return recordList;
 }
