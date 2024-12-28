@@ -1,0 +1,15 @@
+- `/api/books/all` - GET: 獲取所有相機
+- `/api/books/add` - POST: 添加相機
+- `/api/books/update/{cameraId}` - PUT: 更新相機
+- `/api/books/delete/{cameraId}` - DELETE: 刪除相機
+- `/api/books/borrow/{cameraId}` - GET: 借用相機
+- `/api/books/return/{cameraId}` - GET: 歸還相機
+- `/api/users/login` - POST: 登錄
+- `/api/users/register` - POST: 註冊
+- `/api/users/logout` - GET: 注銷
+- `/api/users/myrecords` - GET: 獲取我的記錄
+- `https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=LTMV&lang=tc&rformat=csv` - GET: 獲取能見度數據
+- `https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=tc` - GET: 獲取今日天氣數據
+- `https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=flw&lang=tc` - GET: 獲取天氣報告
+- `https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=tc` - GET: 獲取未來天氣報告
+- `https://data.weather.gov.hk/weatherAPI/hko_data/regional-weather/latest_15min_uvindex_uc.csv` - GET: 獲取紫外線數據

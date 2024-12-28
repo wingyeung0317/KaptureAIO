@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_cancellable_tile_provider/flutter_map_cancellable_tile_provider.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:kapture_aio/api.dart';
 
 class Recommend extends StatefulWidget {
   const Recommend({super.key});
@@ -25,8 +26,7 @@ class _RecommendState extends State<Recommend> {
   String selectedText = "雀鳥、蓮花、荷花等題材 \n (Photo by charlie.bb )";
   
   void _loadCSV() async {
-    final _rawData = await rootBundle.loadString('assets/data/DCFeverRecommend.csv');
-    List<List<dynamic>> _listData = const CsvToListConverter().convert(_rawData);
+    final _listData = await apiLoadCSV('assets/data/DCFeverRecommend.csv');
     for (var i in _listData) {
       _locations.add(i[0]);
     }
