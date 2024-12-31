@@ -33,7 +33,6 @@ class CameralistPage extends StatefulWidget {
 class _CameralistPageState extends State<CameralistPage> {
   @override
   Widget build(BuildContext context) {
-    apiGetAllCameras(); //<<<< try your api function
     return NavigationFrame(
       selectedIndex: 2,
       child: Padding(
@@ -69,7 +68,7 @@ class _CameralistPageState extends State<CameralistPage> {
     int is_admin = int.parse(cookieMap['is_admin']!);
     return Card(
       child: ListTile(
-        enabled: int.parse(camera["status"]) == 0 ? true : false, //check status
+        enabled: int.parse(camera["status"]) == 1 ? true : false, //check status
         onTap: () {
           popupBorrowDialog(camera);
         },
@@ -86,13 +85,14 @@ class _CameralistPageState extends State<CameralistPage> {
                 IconButton(
                   icon: Icon(Icons.edit),
                   onPressed: () {
-                    popupUpdateDialog(camera);
+                    if (int.parse(camera["status"]) == 0) popupUpdateDialog(camera);
                   },
                 ),
                 IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () {
-                    popupDeleteDialog(camera);
+                    if (int.parse(camera["status"]) == 0)
+                      popupDeleteDialog(camera);
                   },
                 ),
               ])
@@ -185,7 +185,7 @@ class _CameralistPageState extends State<CameralistPage> {
     String message = "Failed to delete the camera.";
     if (await apiDeleteCamera(cameraId) == true) {
       message = "The camera has been deleted successfully.";
-      Navigator.of(context).pushNamed("/book/cameralist");
+      Navigator.of(context).pushNamed("/camera/cameralist");
     }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
@@ -196,7 +196,7 @@ class _CameralistPageState extends State<CameralistPage> {
     String message = "Failed to borrow the camera.";
     if (await apiBorrowCamera(cameraId) == true) {
       message = "The camera has been borrowed successfully.";
-      Navigator.of(context).pushNamed("/book/cameralist");
+      Navigator.of(context).pushNamed("/camera/cameralist");
     }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),

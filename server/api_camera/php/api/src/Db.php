@@ -14,7 +14,7 @@ class Db
         $this->host = getenv('DB_HOST') ?: 'localhost';
         $this->user = getenv('DB_USER') ?: 'root';
         $this->pass = getenv('DB_PASS') ?: 'netlab123';
-        $this->dbname = getenv('DB_NAME') ?: 'elibrary';
+        $this->dbname = getenv('DB_NAME') ?: 'camera_sql';
     }
 
     public function connect()

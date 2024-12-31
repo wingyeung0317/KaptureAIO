@@ -104,7 +104,7 @@ class _CameraFormState extends State<CameraForm> {
     String message = 'Failed to submit the camera record.';
     if (result == true) {
       message = 'The record has been successfully submitted.';
-      Navigator.of(context).pushNamed("/book/cameralist");
+      Navigator.of(context).pushNamed("/camera/cameralist");
     }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
@@ -121,7 +121,7 @@ class _CameraFormState extends State<CameraForm> {
     String message = 'Failed to update the camera record.';
     if (result == true) {
       message = 'The record has been successfully updated.';
-      Navigator.of(context).pushNamed("/book/cameralist");
+      Navigator.of(context).pushNamed("/camera/cameralist");
     }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),

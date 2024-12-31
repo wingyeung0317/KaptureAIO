@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import '../../widgets/navigation_frame.dart';
 import '../../widgets/camera_form.dart';
 
-class AddBookPage extends StatefulWidget {
-  AddBookPage({super.key});
+class AddCameraPage extends StatefulWidget {
+  AddCameraPage({super.key});
   @override
-  State<AddBookPage> createState() => _AddBookPageState();
+  State<AddCameraPage> createState() => _AddCameraPageState();
 }
 
-class _AddBookPageState extends State<AddBookPage> {
+class _AddCameraPageState extends State<AddCameraPage> {
   @override
   Widget build(BuildContext context) {
     return NavigationFrame(

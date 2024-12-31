@@ -17,7 +17,7 @@ http.Client getCredentialsClient() {
 
 Future<List<dynamic>> apiGetAllCameras() async {
   var client = getCredentialsClient();
-  final response = await client.get(Uri.parse(API_ENDPOINT + '/api/books/all'));
+  final response = await client.get(Uri.parse(API_ENDPOINT + '/api/cameras/all'));
   client.close();
   List<dynamic> cameraList = [];
   if (response.statusCode == 200) {
@@ -37,7 +37,7 @@ Future<List<dynamic>> apiGetAllCameras() async {
 Future<bool> apiAddCamera(String brand, String model, String description, String status) async {
   var client = getCredentialsClient();
   final response = await client.post(
-    Uri.parse(API_ENDPOINT + '/api/books/add'),
+    Uri.parse(API_ENDPOINT + '/api/cameras/add'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -64,7 +64,7 @@ Future<bool> apiAddCamera(String brand, String model, String description, String
 Future<bool> apiUpdateCamera(int cameraId, String brand, String model, String description, String status) async {
   var client = getCredentialsClient();
   final response = await client.put(
-    Uri.parse(API_ENDPOINT + '/api/books/update/' + cameraId.toString()),
+    Uri.parse(API_ENDPOINT + '/api/cameras/update/' + cameraId.toString()),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -91,7 +91,7 @@ Future<bool> apiUpdateCamera(int cameraId, String brand, String model, String de
 Future<bool> apiDeleteCamera(int cameraId) async {
   var client = getCredentialsClient();
   final response = await client.delete(
-      Uri.parse(API_ENDPOINT + '/api/books/delete/' + cameraId.toString()));
+      Uri.parse(API_ENDPOINT + '/api/cameras/delete/' + cameraId.toString()));
   client.close();
   if (response.statusCode == 200) {
     var jsonResponse = jsonDecode(response.body);
@@ -108,7 +108,7 @@ Future<bool> apiDeleteCamera(int cameraId) async {
 Future<bool> apiBorrowCamera(int cameraId) async {
   var client = getCredentialsClient();
   final response = await client
-      .get(Uri.parse(API_ENDPOINT + '/api/books/borrow/' + cameraId.toString()));
+      .get(Uri.parse(API_ENDPOINT + '/api/cameras/borrow/' + cameraId.toString()));
   client.close();
   if (response.statusCode == 200) {
     var jsonResponse = jsonDecode(response.body);
@@ -125,7 +125,7 @@ Future<bool> apiBorrowCamera(int cameraId) async {
 Future<bool> apiReturnCamera(int cameraId) async {
   var client = getCredentialsClient();
   final response = await client
-      .get(Uri.parse(API_ENDPOINT + '/api/books/return/' + cameraId.toString()));
+      .get(Uri.parse(API_ENDPOINT + '/api/cameras/return/' + cameraId.toString()));
   client.close();
   if (response.statusCode == 200) {
     var jsonResponse = jsonDecode(response.body);

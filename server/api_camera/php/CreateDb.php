@@ -2,7 +2,7 @@
     $servername = "mysql";
     $username = "root"; 
     $password = "netlab123"; 
-    $dbname = "elibrary"; 
+    $dbname = "camera_sql"; 
     try { 
         $conn = new PDO("mysql:host=$servername", $username, $password); 
         // set the PDO error mode to exception 

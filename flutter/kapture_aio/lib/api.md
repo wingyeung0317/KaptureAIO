@@ -1,9 +1,9 @@
-- `/api/books/all` - GET: 獲取所有相機
-- `/api/books/add` - POST: 添加相機
-- `/api/books/update/{cameraId}` - PUT: 更新相機
-- `/api/books/delete/{cameraId}` - DELETE: 刪除相機
-- `/api/books/borrow/{cameraId}` - GET: 借用相機
-- `/api/books/return/{cameraId}` - GET: 歸還相機
+- `/api/cameras/all` - GET: 獲取所有相機
+- `/api/cameras/add` - POST: 添加相機
+- `/api/cameras/update/{cameraId}` - PUT: 更新相機
+- `/api/cameras/delete/{cameraId}` - DELETE: 刪除相機
+- `/api/cameras/borrow/{cameraId}` - GET: 借用相機
+- `/api/cameras/return/{cameraId}` - GET: 歸還相機
 - `/api/users/login` - POST: 登錄
 - `/api/users/register` - POST: 註冊
 - `/api/users/logout` - GET: 注銷

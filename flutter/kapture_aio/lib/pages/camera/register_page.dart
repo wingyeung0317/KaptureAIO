@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import '../../widgets/input_box.dart';
 import '../../api.dart';
 
-class BookRegisterPage extends StatefulWidget {
-  const BookRegisterPage({super.key});
+class CameraRegisterPage extends StatefulWidget {
+  const CameraRegisterPage({super.key});
   @override
-  State<BookRegisterPage> createState() => _BookRegisterPageState();
+  State<CameraRegisterPage> createState() => _CameraRegisterPageState();
 }
 
-class _BookRegisterPageState extends State<BookRegisterPage> {
+class _CameraRegisterPageState extends State<CameraRegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -92,7 +92,7 @@ class _BookRegisterPageState extends State<BookRegisterPage> {
                 minimumSize: const Size.fromHeight(50),
                 textStyle: const TextStyle(fontSize: 14)),
             onPressed: () {
-              Navigator.of(context).pushNamed("/book/login");
+              Navigator.of(context).pushNamed("/camera/login");
             },
             child: const Text('Back to Login'),
           )),
@@ -104,7 +104,7 @@ class _BookRegisterPageState extends State<BookRegisterPage> {
 
     if (await apiRegister(_usernameController.text, _passwordController.text, _repeatedPasswordController.text)) {
       message = 'Successfully registered your account.';
-      Navigator.of(context).pushNamed("/book/login");
+      Navigator.of(context).pushNamed("/camera/login");
     }
 
     ScaffoldMessenger.of(context).showSnackBar(

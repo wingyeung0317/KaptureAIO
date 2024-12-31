@@ -7,7 +7,7 @@ final String targetUrl = 'http://localhost:8083/'; // your API server address
 void configServer(HttpServer server) {
 //add neccessary properties to the response header
   server.defaultResponseHeaders
-      .add('Access-Control-Allow-Origin', 'http://localhost:8080');
+      .add('Access-Control-Allow-Origin', 'http://localhost:8083');
   server.defaultResponseHeaders.add('Access-Control-Allow-Credentials', true);
   server.defaultResponseHeaders
       .add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');

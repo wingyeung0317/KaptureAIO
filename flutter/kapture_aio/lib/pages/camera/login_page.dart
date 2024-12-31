@@ -3,13 +3,13 @@ import '../../widgets/input_box.dart';
 import '../../cookie.dart';
 import '../../api.dart';
 
-class BookLoginPage extends StatefulWidget {
-  const BookLoginPage({super.key});
+class CameraLoginPage extends StatefulWidget {
+  const CameraLoginPage({super.key});
   @override
-  State<BookLoginPage> createState() => _BookLoginPageState();
+  State<CameraLoginPage> createState() => _CameraLoginPageState();
 }
 
-class _BookLoginPageState extends State<BookLoginPage> {
+class _CameraLoginPageState extends State<CameraLoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -114,7 +114,7 @@ class _BookLoginPageState extends State<BookLoginPage> {
                 minimumSize: const Size.fromHeight(50),
                 textStyle: const TextStyle(fontSize: 14)),
             onPressed: () {
-              Navigator.of(context).pushNamed("/book/register");
+              Navigator.of(context).pushNamed("/camera/register");
             },
             child: const Text('Register'),
           )),
@@ -127,7 +127,7 @@ class _BookLoginPageState extends State<BookLoginPage> {
     if (await apiLogin(_usernameController.text, _passwordController.text)) {
       message = 'Successfully login to your account.';
       setCookie("logged_in_user", _usernameController.text); // 設置登錄用戶名到 cookies
-      Navigator.of(context).pushNamed("/book/home");
+      Navigator.of(context).pushNamed("/camera/home");
     }
 
     ScaffoldMessenger.of(context).showSnackBar(

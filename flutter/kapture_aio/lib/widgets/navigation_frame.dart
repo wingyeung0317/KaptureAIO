@@ -28,27 +28,27 @@ class _NavigationFrameState extends State<NavigationFrame> {
             widget.selectedIndex = index;
             switch (index) {
               case 0:
-                Navigator.of(context).pushNamed("/book/home");
+                Navigator.of(context).pushNamed("/camera/home");
                 break;
               case 1:
-                Navigator.of(context).pushNamed("/book/add");
+                Navigator.of(context).pushNamed("/camera/add");
                 break;
               case 2:
-                Navigator.of(context).pushNamed("/book/cameralist");
+                Navigator.of(context).pushNamed("/camera/cameralist");
                 break;
               case 3:
-                Navigator.of(context).pushNamed("/book/myrecords");
+                Navigator.of(context).pushNamed("/camera/myrecords");
                 break;
               case 4:
                 logout();
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/book', (Route<dynamic> route) => false);
+                    '/camera', (Route<dynamic> route) => false);
                 break;
               case 5:
-                Navigator.of(context).pushNamed("/book/phpbb");
+                Navigator.of(context).pushNamed("/camera/phpbb");
                 break;
               default:
-                Navigator.of(context).pushNamed("/book");
+                Navigator.of(context).pushNamed("/camera");
             }
           });
         },
@@ -65,13 +65,13 @@ class _NavigationFrameState extends State<NavigationFrame> {
             label: Text('Add Camera'),
           ),
           NavigationRailDestination(
-            icon: Icon(Icons.library_books_outlined),
-            selectedIcon: Icon(Icons.library_books),
+            icon: Icon(Icons.library_cameras_outlined),
+            selectedIcon: Icon(Icons.library_cameras),
             label: Text('Camera List'),
           ),
           NavigationRailDestination(
-            icon: Icon(Icons.book_outlined),
-            selectedIcon: Icon(Icons.book),
+            icon: Icon(Icons.camera_outlined),
+            selectedIcon: Icon(Icons.camera),
             label: Text('My Records'),
           ),
           NavigationRailDestination(

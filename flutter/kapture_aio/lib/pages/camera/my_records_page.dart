@@ -91,7 +91,7 @@ class _MyRecordsPageState extends State<MyRecordsPage> {
     if (await apiReturnCamera(cameraId) == true) {
       message = "The camera has been returned successfully.";
 
-      Navigator.of(context).pushNamed("/book/myrecords");
+      Navigator.of(context).pushNamed("/camera/myrecords");
     }
 
     ScaffoldMessenger.of(context).showSnackBar(

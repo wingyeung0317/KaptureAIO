@@ -39,7 +39,7 @@ enum PageIndex{
   r7d,
   forum,
   login,
-  book,
+  camera,
 }
 
 enum Role{

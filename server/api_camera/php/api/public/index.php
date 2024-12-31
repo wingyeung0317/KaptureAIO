@@ -32,16 +32,16 @@ foreach (glob(__DIR__ . '/../src/services/*.php') as $filename) {
 require_once($filename); 
 }
 
-$app->get('/books/all', 'App\Services\GetAllCameras');
-$app->post('/books/add', 'App\Services\AddCamera');
-$app->put('/books/update/{book_id}', 'App\Services\UpdateCamera');
-$app->delete('/books/delete/{book_id}', 'App\Services\DeleteCamera');
+$app->get('/cameras/all', 'App\Services\GetAllCameras');
+$app->post('/cameras/add', 'App\Services\AddCamera');
+$app->put('/cameras/update/{camera_id}', 'App\Services\UpdateCamera');
+$app->delete('/cameras/delete/{camera_id}', 'App\Services\DeleteCamera');
 $app->post('/users/login', 'App\Services\Login')->setName('login');
 $app->post('/users/register', 'App\Services\Register')->setName('register');
 $app->get('/users/logout', 'App\Services\Logout');
 $app->get('/users/myrecords', 'App\Services\MyRecords');
-$app->get('/books/borrow/{camera_id}','App\Services\BorrowCamera');
-$app->get('/books/return/{camera_id}', 'App\Services\ReturnCamera');
+$app->get('/cameras/borrow/{camera_id}','App\Services\BorrowCamera');
+$app->get('/cameras/return/{camera_id}', 'App\Services\ReturnCamera');
 
 // Run app
 $app->run();

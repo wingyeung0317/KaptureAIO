@@ -9,12 +9,12 @@ import 'package:kapture_aio/pages/login.dart';
 import 'package:kapture_aio/pages/recommend.dart';
 import 'package:kapture_aio/localization/i18n.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:kapture_aio/pages/book/home_page.dart';
-import 'package:kapture_aio/pages/book/add_book_page.dart';
-import 'package:kapture_aio/pages/book/cameralist_page.dart';
-import 'package:kapture_aio/pages/book/login_page.dart';
-import 'package:kapture_aio/pages/book/register_page.dart';
-import 'package:kapture_aio/pages/book/my_records_page.dart';
+import 'package:kapture_aio/pages/camera/home_page.dart';
+import 'package:kapture_aio/pages/camera/add_camera_page.dart';
+import 'package:kapture_aio/pages/camera/cameralist_page.dart';
+import 'package:kapture_aio/pages/camera/login_page.dart';
+import 'package:kapture_aio/pages/camera/register_page.dart';
+import 'package:kapture_aio/pages/camera/my_records_page.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -55,14 +55,14 @@ class KaptureAIO extends StatelessWidget {
         '/r7d': (context) => Recommend(),
         '/forum': (context) => ForumPage(),
         '/login': (context) => LoginPage(updateHomeState: ctx),
-        '/book': (context) => BookLoginPage(),
-        '/book/login': (context) => BookLoginPage(),
-        '/book/home': (context) => HomePage(),
-        '/book/add': (context) => AddBookPage(),
-        '/book/cameralist': (context) => CameralistPage(),
-        '/book/myrecords': (context) => MyRecordsPage(),
-        '/book/register': (context) => BookRegisterPage(),
-        '/book/phpbb': (context) => PhpbbPage(), // 新增的路由
+        '/camera': (context) => CameraLoginPage(),
+        '/camera/login': (context) => CameraLoginPage(),
+        '/camera/home': (context) => HomePage(),
+        '/camera/add': (context) => AddCameraPage(),
+        '/camera/cameralist': (context) => CameralistPage(),
+        '/camera/myrecords': (context) => MyRecordsPage(),
+        '/camera/register': (context) => CameraRegisterPage(),
+        '/camera/phpbb': (context) => PhpbbPage(), // 新增的路由
       },
     );
   }
@@ -115,7 +115,7 @@ class _HomeState extends State<Home> {
       Recommend(),
       ForumPage(),
       LoginPage(updateHomeState: updateHomeState),
-      BookLoginPage(),
+      CameraLoginPage(),
     ];
     return Scaffold(
       appBar: AppBar(title: Text(widget.title), backgroundColor: Colors.black, foregroundColor: Colors.white,),
