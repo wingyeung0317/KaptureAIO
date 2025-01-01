@@ -85,14 +85,13 @@ class _CameralistPageState extends State<CameralistPage> {
                 IconButton(
                   icon: Icon(Icons.edit),
                   onPressed: () {
-                    if (int.parse(camera["status"]) == 0) popupUpdateDialog(camera);
+                    popupUpdateDialog(camera);
                   },
                 ),
                 IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () {
-                    if (int.parse(camera["status"]) == 0)
-                      popupDeleteDialog(camera);
+                    popupDeleteDialog(camera);
                   },
                 ),
               ])

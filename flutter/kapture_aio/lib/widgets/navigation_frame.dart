@@ -60,18 +60,18 @@ class _NavigationFrameState extends State<NavigationFrame> {
             label: Text('Home'),
           ),
           NavigationRailDestination(
-            icon: Icon(Icons.my_library_add_outlined),
-            selectedIcon: Icon(Icons.my_library_add),
+            icon: Icon(Icons.add_a_photo_outlined),
+            selectedIcon: Icon(Icons.add_a_photo),
             label: Text('Add Camera'),
           ),
           NavigationRailDestination(
-            icon: Icon(Icons.library_cameras_outlined),
-            selectedIcon: Icon(Icons.library_cameras),
+            icon: Icon(Icons.camera_alt_outlined),
+            selectedIcon: Icon(Icons.camera_alt),
             label: Text('Camera List'),
           ),
           NavigationRailDestination(
-            icon: Icon(Icons.camera_outlined),
-            selectedIcon: Icon(Icons.camera),
+            icon: Icon(Icons.receipt_long_outlined),
+            selectedIcon: Icon(Icons.receipt_long),
             label: Text('My Records'),
           ),
           NavigationRailDestination(
